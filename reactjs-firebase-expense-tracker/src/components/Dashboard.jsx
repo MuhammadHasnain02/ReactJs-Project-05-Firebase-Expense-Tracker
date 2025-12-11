@@ -141,7 +141,7 @@ function Dashboard() {
         navigation('/');
     }
 
-    const formatCurrency = (v) => `$${Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+    const formatCurrency = (v) => `Rs.${Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
 
     return (
         <div className="min-h-screen flex flex-col bg-gray-50">
@@ -165,19 +165,24 @@ function Dashboard() {
                     </p>
                 </div>
 
-                <div className="relative flex flex-row items-center gap-10" ref={dropdownRef}>
+                <div className="relative flex flex-row justify-center items-center gap-6" ref={dropdownRef}>
 
                     {/* ==== Welcome User ==== */}
                     <p className="hidden md:block text-gray-800 font-medium">
                         WELCOME, {currentUser.email.toUpperCase().split("@")[0]}
                     </p>
 
+                    {/* ==== Theme Toggle ==== */}
+                    <button className="flex justify-center items-center bg-indigo-100 w-10 h-10 -rotate-10 hover:-rotate-20 cursor-pointer transition-all duration-200 rounded-full shadow-md">
+                        <i className="fa-regular fa-moon text-indigo-700 text-[20px]"></i>
+                    </button>
+
                     {/* ==== Profile Trigger ==== */}
                     <div onClick={() => setOpen(!open)}
-                        className="flex flex-col items-center cursor-pointer">
+                        className="flex flex-col items-center cursor-pointer -space-y-2.5">
 
                         {/* Profile Circle Icon */}
-                        <i className="ri-account-circle-fill text-3xl text-indigo-700"></i>
+                        <i className="ri-account-circle-fill text-[32px] text-indigo-700"></i>
 
                         {/* User Name */}
                         <p className="hidden md:block text-gray-800 font-medium truncate max-w-[120px]">
@@ -186,13 +191,11 @@ function Dashboard() {
                     </div>
 
                     {/* ==== DROPDOWN BOX ==== */}
-                    <div
-                        className={`absolute right-0 mt-3 w-64 bg-white border border-gray-200 shadow-2xl rounded-xl py-2 z-50 transition-all duration-200 ${
-                        open ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
-                        }`}
-                    >
+                    <div className={`absolute top-0 -right-5 mt-16 w-64 bg-white border border-gray-200 shadow-2xl rounded-xl py-2 z-50 transition-all duration-200 ${
+                        open ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}>
+
                         {/* Top User Info */}
-                        <div className="flex items-center gap-3 px-4 py-3">
+                        <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-300">
                             <i className="ri-account-circle-fill text-4xl text-gray-700"></i>
                             <div>
                                 <p className="font-semibold text-gray-800 truncate">
@@ -204,48 +207,29 @@ function Dashboard() {
                             </div>
                         </div>
 
-                        <hr className="my-2" />
-
-                        {/* Main Menu Items */}
-                        {[
-                            ["Profile", "ri-user-line"],
-                            ["Repositories", "ri-folder-line"],
-                            ["Stars", "ri-star-line"],
-                            ["Gists", "ri-git-repository-line"],
-                            ["Organizations", "ri-building-line"],
-                            ["Sponsors", "ri-community-line"],
-                        ].map(([name, icon]) => (
-                        <button
-                            key={name}
-                            className="dropdown-item flex items-center gap-2 px-4 py-2 hover:bg-gray-100 w-full text-left transition-colors duration-150"
-                        >
-                            <i className={icon}></i> {name}
-                        </button>
-                        ))}
-
-                        <hr className="my-2" />
-
                         {/* Settings Items */}
-                        {[
-                            ["Settings", "ri-settings-3-line"],
-                            ["Account", "ri-user-settings-line"],
-                            ["Appearance", "ri-brush-line"],
-                            ["Accessibility", "ri-accessibility-line"],
-                        ].map(([name, icon]) => (
-                        <button
-                            key={name}
-                            className="dropdown-item flex items-center gap-2 px-4 py-2 hover:bg-gray-100 w-full text-left transition-colors duration-150"
-                        >
-                            <i className={icon}></i> {name}
-                        </button>
-                        ))}
+                        <div className='border-b border-gray-300'>
+                            {[
 
-                        <hr className="my-2" />
+                                ["Profile", "ri-user-line"],
+                                ["Account", "ri-user-settings-line"],
+                                ["Appearance", "ri-brush-line"],
+                                ["Settings", "ri-settings-3-line"],
+
+                            ].map(([name, icon]) => (
+                            <button
+                                key={name}
+                                className="dropdown-item flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-gray-100 w-full text-left transition-colors duration-150"
+                            >
+                                <i className={icon}></i> {name}
+                            </button>
+                            ))}
+                        </div>
 
                         {/* Logout */}
                         <button
                             onClick={handleLogout}
-                            className="dropdown-item text-red-600 flex items-center gap-2 px-4 py-2 hover:bg-red-100 w-full text-left transition-colors duration-150"
+                            className="flex items-center dropdown-item text-red-600 hover:bg-red-50 gap-2 px-4 py-2 cursor-pointer w-full text-left transition-colors duration-150"
                         >
                         <i className="ri-logout-box-r-line"></i> Sign out
                         </button>
@@ -268,9 +252,10 @@ function Dashboard() {
                             <i className="ri-arrow-up-circle-line text-2xl text-green-600"></i>
                         </div>
                         <div>
-                            <p className="text-gray-600 font-semibold">Total Income</p>
-                            <h3 className="text-3xl font-bold mt-1 text-green-700">
-                                ${Math.abs(summary.income).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                            <p className="text-gray-700 font-semibold">Total Income</p>
+                            <h3 className="text-[26px] font-bold mt-0.5 text-green-700">
+                                <span className='pr-1'>Rs.</span>
+                                {Math.abs(summary.income).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                             </h3>
                         </div>
                     </div>
@@ -281,9 +266,10 @@ function Dashboard() {
                             <i className="ri-arrow-down-circle-line text-2xl text-red-600"></i>
                         </div>
                         <div>
-                            <p className="text-red-600 font-medium">Total Expense</p>
-                            <h3 className="text-3xl font-bold mt-1 text-red-700">
-                                ${Math.abs(summary.expense).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                            <p className="text-gray-700 font-semibold">Total Expense</p>
+                            <h3 className="text-[26px] font-bold mt-0.5 text-red-700">
+                                <span className='pr-1'>Rs.</span>
+                                {Math.abs(summary.expense).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                             </h3>
                         </div>
                     </div>
@@ -294,9 +280,10 @@ function Dashboard() {
                             <i className="ri-wallet-3-line text-2xl text-indigo-600"></i>
                         </div>
                         <div>
-                            <p className="text-indigo-600 font-medium">Net Balance</p>
-                            <h3 className="text-3xl font-bold mt-1 text-indigo-700">
-                                ${Math.abs(summary.balance).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                            <p className="text-gray-700 font-semibold">Net Balance</p>
+                            <h3 className="text-[26px] font-bold mt-0.5 text-indigo-700">
+                                <span className='pr-1'>Rs.</span>
+                                {Math.abs(summary.balance).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                             </h3>
                         </div>
                     </div>
@@ -307,39 +294,58 @@ function Dashboard() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
                     {/* -------- FORM (LEFT SIDE) -------- */}
-                    <div className="bg-white border border-gray-200 rounded-xl shadow-xl p-6 sm:p-8">
+                    <div className="h-100 bg-white border border-gray-200 rounded-xl shadow-xl p-6 sm:p-8">
 
-                        <h3 className="text-xl font-bold text-gray-800 mb-4">
-                            {editId ? `Editing ${formType} Transaction` : 'Add New Transaction'}
-                        </h3>
+                        {/* header */}
+                        <div className="flex items-center justify-between mb-3 pb-4 border-b border-gray-200 dark:border-gray-700">
+    
+                            {/* Left Side: Dynamic Icon & Title */}
+                            <div className="flex items-center gap-4">
+                                
+                                {/* Dynamic Icon Box: Blue for Add, Amber/Orange for Edit */}
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-sm transition-all duration-300 bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400`}>
+                                    <i className={`fa-solid ${editId ? 'fa-pen-to-square' : 'fa-layer-group'} text-lg`}></i>
+                                </div>
+                                <h3 className="text-[21px] font-bold text-gray-800 dark:text-white tracking-tight">
+                                    {editId ? "Edit" : "New"} <span className="text-indigo-600 dark:text-indigo-400">Transaction</span>
+                                </h3>
+
+                            </div>
+
+                            {/* Right Side: Status Badge (Hidden on very small screens) */}
+                            <span className={`hidden sm:inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase border 
+                                ${editId 
+                                    ? 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/20 dark:text-amber-300 dark:border-amber-800' 
+                                    : 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-900/20 dark:text-indigo-300 dark:border-indigo-800'
+                                }`}
+                            >
+                                {editId ? "Update Mode" : "Create Mode"}
+                            </span>
+
+                        </div>
 
                         {/* Switch Buttons */}
                         <div className="flex mb-5 border-b border-gray-200">
                             <button
-                                onClick={() => { setFormType("income"); setEditId(""); }}
-                                className={`flex-1 py-3 font-semibold text-lg ${
-                                    formType === 'income'
+                                onClick={() => { setFormType("income"); setEditId(""); setNewDescription(""); setNewAmount(""); }}
+                                className={`flex-1 py-3 font-semibold text-[16px] cursor-pointer 
+                                    ${formType === 'income'
                                     ? 'text-indigo-600 border-b-2 border-indigo-600'
-                                    : 'text-gray-500'
-                                }`}
-                            >
+                                    : 'text-gray-500'}`}>
                                 Income
                             </button>
 
-                            <button
-                                onClick={() => { setFormType("expense"); setEditId(""); }}
-                                className={`flex-1 py-3 font-semibold text-lg ${
-                                    formType === 'expense'
+                            <button onClick={() => { setFormType("expense"); setEditId(""); setNewDescription(""); setNewAmount(""); }}
+                                className={`flex-1 py-3 font-semibold text-[16px] cursor-pointer 
+                                    ${formType === 'expense'
                                     ? 'text-indigo-600 border-b-2 border-indigo-600'
-                                    : 'text-gray-500'
-                                }`}
-                            >
+                                    : 'text-gray-500'}`}>
                                 Expense
                             </button>
                         </div>
 
                         {/* INLINE INPUTS */}
-                        <div className="flex flex-col gap-4">
+                        <div className="flex flex-col gap-5">
 
                             <input 
                                 type="number"
@@ -356,14 +362,13 @@ function Dashboard() {
                                 className="w-full border border-gray-300 rounded-lg px-4 py-2.5 shadow-sm focus:ring-2 focus:ring-indigo-500"
                             />
 
-                            <button
-                                onClick={handleAddUpdateTransaction}
+                            <button onClick={handleAddUpdateTransaction}
                                 disabled={loading || !newDescription.trim() || !newAmount}
-                                className={`w-full text-white px-5 py-2.5 rounded-lg shadow-md transition ${
-                                    formType === "income"
-                                    ? "bg-green-600 hover:bg-green-700"
-                                    : "bg-red-600 hover:bg-red-700"
-                                } ${loading ? "opacity-50" : ""}`}
+                                className={`w-full font-semibold text-white px-5 py-2.5 rounded-lg shadow-md transition cursor-pointer
+                                    ${formType === "income"
+                                    ? "bg-green-600 transition duration-400 hover:scale-[0.99]"
+                                    : "bg-red-600 transition duration-400 hover:scale-[0.99]"} 
+                                    ${loading ? "opacity-50" : ""}`}
                             >
                                 {loading ? "Please wait..." : editId ? "Update Transaction" : `Add ${formType}`}
                             </button>
@@ -373,37 +378,110 @@ function Dashboard() {
                     </div>
 
                     {/* -------- HISTORY (RIGHT SIDE) -------- */}
-                    <div className="flex flex-col bg-white border border-gray-200 rounded-xl shadow-xl p-6 sm:p-8">
-                        <h3 className="text-xl font-bold text-gray-800 mb-4">Transaction History</h3>
+                    <div className="flex flex-col bg-white border border-gray-200 rounded-xl shadow-xl h-full">
+                        
+                        {/* Header Section */}
+                        <div className="sticky top-0 p-6 border-b border-gray-200 flex justify-between items-center bg-white rounded-t-xl z-10">
 
-                        {transactions.length > 0 ?
-
-                            transactions.map(t => (
-                            <div key={t.id} className="flex justify-between py-3 border-b border-gray-200">
-                                <div>
-                                    <p className="font-semibold">{t.description}</p>
-                                    <p className="text-sm text-gray-500">{t.type}</p>
+                            <h3 className="text-xl font-bold text-gray-800 flex items-center gap-3">
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-sm transition-all duration-300 bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400`}>
+                                    <i className={`fa-solid fa-clock-rotate-left text-lg`}></i>
                                 </div>
+                                History
+                            </h3>
+                            {/* Optional: Add a transaction count badge */}
+                            <span className="bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-900/20 dark:text-indigo-300 dark:border-indigo-800 uppercase font-semibold text-[13px] py-2 px-4 rounded-full">
+                                {transactions.length} Records
+                            </span>
 
-                                <p className={t.type === "income" ? "text-green-600 font-bold" : "text-red-600 font-bold"}>
-                                    {formatCurrency(t.amount)}
-                                </p>
+                        </div>
 
-                                <div className="space-x-2">
-                                    <button onClick={() => editTransaction(t)} className="text-indigo-700">
-                                        Edit
-                                    </button>
-                                    <button onClick={() => handleDeleteTransaction(t.id)} className="text-red-600">
-                                        Delete
-                                    </button>
+                        {/* Scrollable List Section */}
+                        <div className="p-4 sm:p-6 overflow-y-auto max-h-[600px] custom-scrollbar">
+
+                            {transactions.length > 0 ? (
+                            <div className="space-y-4">
+
+                                {transactions.map((t) => {
+                                    // Date Formatting Logic (Handles Firestore Timestamp or standard Date)
+                                    const date = t.createdAt?.toDate 
+                                        ? t.createdAt.toDate().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) 
+                                        : new Date(t.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+                                    return (
+                                        <div key={t.id} className="group flex items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-xl hover:bg-white hover:shadow-md transition-all duration-300">
+                                            
+                                            {/* Left Side: Icon & Details */}
+                                            <div className="flex items-center gap-4 overflow-hidden">
+
+                                                {/* Visual Icon for Income/Expense */}
+                                                <div className={`w-12 h-12 flex items-center justify-center rounded-full ${
+                                                    t.type === "income" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
+                                                    <i className={`fa-solid ${t.type === "income" ? "fa-arrow-up" : "fa-arrow-down"} text-lg`}></i>
+                                                </div>
+
+                                                <div className="min-w-0">
+
+                                                    <p className="font-bold text-gray-800 truncate text-base">{t.description}</p>
+                                                    <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
+
+                                                        <span className="capitalize bg-gray-200 px-1.5 py-0.5 rounded text-[10px] font-medium tracking-wide">
+                                                            {t.type}
+                                                        </span>
+                                                        <span className="flex items-center gap-1">
+                                                            <i className="fa-regular fa-calendar"></i> {date}
+                                                        </span>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            {/* Right Side: Amount & Actions */}
+                                            <div className="flex flex-col items-end gap-2 ml-4">
+                                                <p className={`text-lg font-bold tracking-tight ${
+                                                    t.type === "income" ? "text-green-600" : "text-red-600"
+                                                }`}>
+                                                    {t.type === "income" ? "+" : "-"}{formatCurrency(t.amount)}
+                                                </p>
+
+                                                {/* Action Buttons (Visible on Hover or always on mobile) */}
+                                                <div className="flex items-center gap-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200">
+                                                    <button 
+                                                        onClick={() => editTransaction(t)} 
+                                                        className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                                                        title="Edit"
+                                                    >
+                                                        <i className="fa-solid fa-pen-to-square"></i>
+                                                    </button>
+                                                    <button 
+                                                        onClick={() => handleDeleteTransaction(t.id)} 
+                                                        className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                        title="Delete"
+                                                    >
+                                                        <i className="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    );
+                                })}
+
+                            </div>
+                            ) : (
+                                // Empty State
+                                <div className="flex flex-col items-center justify-center py-12 px-4 text-center border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50">
+                                    <div className="bg-gray-100 p-4 rounded-full mb-3">
+                                        <i className="fa-solid fa-clipboard-list text-gray-400 text-2xl"></i>
+                                    </div>
+                                    <p className="text-gray-800 font-medium">No transactions found</p>
+                                    <p className="text-sm text-gray-500 mt-1">Add a new transaction to see history.</p>
                                 </div>
-                            </div>
+                            )}
 
-                        )):
-                            <div className="flex-1 flex items-center justify-center text-center py-10 border border-dashed rounded-lg text-gray-500">
-                                No transactions yet.
-                            </div>
-                        }
+                        </div>
                     </div>
 
                 </div>

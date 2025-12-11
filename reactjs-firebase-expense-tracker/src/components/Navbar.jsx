@@ -24,8 +24,11 @@ const Navbar = () => {
 
                 {/* Navigation/Action Buttons (Right Side) */}
                 <div className="flex items-center space-x-3">
+                    <button className="flex justify-center items-center bg-indigo-100 w-10 h-10 -rotate-10 hover:-rotate-20 cursor-pointer transition-all duration-200 rounded-full shadow-md">
+                        <i className="fa-regular fa-moon text-indigo-700 text-[20px]"></i>
+                    </button>
                     <button onClick={() => navigation('/signin')} 
-                        className="hidden sm:inline-block py-2 px-4 text-indigo-600 font-semibold rounded-lg hover:bg-indigo-100 cursor-pointer transition">
+                        className="hidden sm:inline-block py-2 px-4 text-indigo-600 font-semibold rounded-lg hover:bg-indigo-50 cursor-pointer transition">
                         Login
                     </button>
                     <button onClick={() => navigation('/signup')} 
