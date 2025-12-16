@@ -46,7 +46,7 @@ const Footer = () => {
                         <h3 className="text-lg font-semibold text-white mb-4">Connect With Us</h3>
                         <div className="flex space-x-4">
                             {/* Social Icon 1 (Github) */}
-                            <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-indigo-600 hover:text-white transition-all duration-300 transform hover:-translate-y-1">
+                            <a href="https://github.com/MuhammadHasnain02" target='_blank' className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-indigo-600 hover:text-white transition-all duration-300 transform hover:-translate-y-1">
                                 <i className="fa-brands fa-github text-lg"></i>
                             </a>
                             {/* Social Icon 2 (Twitter/X) */}
@@ -54,7 +54,7 @@ const Footer = () => {
                                 <i className="fa-brands fa-twitter text-lg"></i>
                             </a>
                             {/* Social Icon 3 (LinkedIn) */}
-                            <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-blue-700 hover:text-white transition-all duration-300 transform hover:-translate-y-1">
+                            <a href="https://www.linkedin.com/in/muhammad-hasnain-ali-khan-b77400385" target='_blank' className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-blue-700 hover:text-white transition-all duration-300 transform hover:-translate-y-1">
                                 <i className="fa-brands fa-linkedin-in text-lg"></i>
                             </a>
                         </div>
